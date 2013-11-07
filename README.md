@@ -1,5 +1,4 @@
 ###matchum
-***
 
 matchum is an image matching game for jQuery
 
