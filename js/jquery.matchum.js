@@ -4,10 +4,7 @@
       containerWidth : 500,    // fixed (px)
       containerHeight : 200,   // fixed (px)
       gameTimer : 40,     // timer
-      cardIDs: ['1up-0', '1up-1', 'flower-0', 'flower-1', 'coinTen-0', 'coinTen-1', 'coinTwenty-0', 'coinTwenty-1', 'star-0', 'star-1', 'mushroom-0', 'mushroom-1'], 
-      cardBack: './images/n.png',
-      startId: 'startBtn',
-      errors: true
+      cardBack: './images/n.png'
     },
 
     //settings
@@ -17,7 +14,6 @@
     cards = elem.children('ul').children('li'),
     rows = elem.children('ul'),
     cols = elem.children('ul li:first');
-    startBtn = elem.find($('#'+config.startId)),
     timeLeft = 0,
     timer = $('<p/>', {
     }).appendTo(elem),
@@ -25,7 +21,7 @@
     methods = {
 
       // start elem animation
-      startGame : function() {
+      start : function() {
         if (core.playing) return;
 
         //shuffle and hide
@@ -38,13 +34,13 @@
           timeLeft--;
           timer.text(timeLeft);
           if(timeLeft<=0){
-            methods.endGame();  
+            methods.end();  
           }
         }, 1000);
       },
 
       // stop elem
-      endGame : function(msg) {
+      end : function(msg) {
         clearInterval(core.playing);
         core.playing = 0;
         core.previousCard = 'false';
@@ -59,7 +55,7 @@
       // destroy plugin instance
       destroy : function() {
         // stop autoplay
-        methods.endGame();
+        methods.end();
 
         // remove
         cards
@@ -83,7 +79,6 @@
       bindEvents : function() {
         cards.on('click', core.glimpseCard);
         cards.on('cardsMatched', core.cardsMatched);
-        startBtn.on('click', methods.startGame);
       },
 
       createStyles : function() {
@@ -158,7 +153,7 @@
         //2 cards matched, check if none left
         cards.filter($('.'+pairs)).addClass('found').removeClass('unfound');
         if(cards.filter($('.unfound')).length === 0){
-          methods.endGame('win');
+          methods.end('win');
         }
         core.previousCard = 'false';
       },
@@ -228,9 +223,27 @@
 
   };
 
-  $.fn.matchum = function(settings) { 
-    var elem = this;
-    new ImgMatch(elem, settings);
-    return this;
+  $.fn.matchum = function(method) {
+    var elem = this,
+      instance = elem.data('matchum');
+
+    // if creating a new instance
+    if (typeof method === 'object' || !method) {
+        return elem.each(function() {
+            var matchum;
+
+            // if plugin already instantiated, return
+            if (instance) return;
+
+            // otherwise create a new instance
+            matchum = new Matchum(elem, method);
+            elem.data('matchum', matchum);
+        });
+
+    // otherwise, call method on current instance
+    } else if (typeof method === 'string' && instance[method]) {
+      instance[method].call(elem);
+      return elem;
+    }
   } 
 })(jQuery);
