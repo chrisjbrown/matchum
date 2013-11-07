@@ -5,6 +5,11 @@ matchum is an image matching game for jQuery.
 ***
 
 ###Markup Example
+    <style>
+      #gameid li{
+        position:relative;
+      }
+    </style>
 
     <div id="gameId">
       <ul>
@@ -24,6 +29,7 @@ matchum is an image matching game for jQuery.
 
 And so on for as many pictures as you have/want. Matching pictures MUST appear
 next to each other in the list as this is how matches are determined.
+Only css restriction is that 
 
 ***
 
