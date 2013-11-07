@@ -1,6 +1,40 @@
 ###matchum
 
-matchum is an image matching game for jQuery
+matchum is an image matching game for jQuery.
+
+***
+
+###Markup Example
+
+    <div id="gameId">
+      <ul>
+        <li><img src="yoursourcepic1"/></li>
+        <li><img src="yoursourcepic1"/></li>
+        <li><img src="yoursourcepic2"/></li>
+        <li><img src="yoursourcepic2"/></li>
+      </ul>
+      <ul>
+        <li><img src="yoursourcepic3"/></li>
+        <li><img src="yoursourcepic3"/></li>
+        <li><img src="yoursourcepic4"/></li>
+        <li><img src="yoursourcepic4"/></li>
+      </ul>
+      <button id="startBtn">Start</button>
+    </div>
+
+And so on for as many pictures as you have/want. Matching pictures MUST appear
+next to each other in the list as this is how matches are determined.
+
+***
+
+###Javascript Example
+
+    $(function(){
+      $('#gameId').matchum();
+      $('#startBtn').click(function(){
+        $('#matchGame').matchum('start');
+      });
+    });
 
 ***
 
