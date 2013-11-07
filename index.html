@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<!-- Metaaaa -->
+    	<meta charset="utf-8">
+	<meta name="author" content="">
+	
+	<!-- Viewport -->
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- CSS -->	
+	<link type="text/css" href="css/style.css" rel="stylesheet" />
+
+</head>
+<body>
+  <div id="page">
+    <div id="matchGame">
+      <ul>
+        <li><img src='./images/flower.png'/></li>
+        <li><img src='./images/flower.png'/></li>
+        <li><img src='./images/star.png'/></li>
+        <li><img src='./images/star.png'/></li>
+      </ul>
+      <ul>
+        <li><img src='./images/coinTen.png'/></li>
+        <li><img src='./images/coinTen.png'/></li>
+        <li><img src='./images/coinTwenty.png'/></li>
+        <li><img src='./images/coinTwenty.png'/></li>
+      </ul>
+      <ul>
+        <li><img src='./images/mushroom.png'/></li>
+        <li><img src='./images/mushroom.png'/></li>
+        <li><img src='./images/1up.png'/></li>
+        <li><img src='./images/1up.png'/></li>
+      </ul>
+      <button id="startBtn">Start</button>
+    </div>
+  </div>
+
+  <!-- Javascript-->  
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery.marioMatch.js"></script>
+  <script>
+    $(function(){
+      $('#matchGame').imgMatch();
+    });
+  </script>
+</body>
