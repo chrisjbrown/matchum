@@ -29,7 +29,7 @@ matchum is an image matching game for jQuery.
 
 And so on for as many pictures as you have/want. Matching pictures MUST appear
 next to each other in the list as this is how matches are determined.
-Only css restriction is that 
+Only css restriction is that <li> tags must be relative for animations to work.
 
 ***
 
