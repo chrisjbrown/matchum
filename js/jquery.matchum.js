@@ -1,9 +1,9 @@
 ;(function($) {
   var Matchum = function(elem, settings){
     var defaults = {
-      containerWidth : 500,    // fixed (px)
-      containerHeight : 200,   // fixed (px)
-      gameTimer : 40,     // timer
+      containerWidth : 450,      // fixed (px)
+      containerHeight : 200,     // fixed (px)
+      gameTimer : 40,            // timer
       cardBack: './images/n.png'
     },
 
@@ -38,6 +38,10 @@
           }
         }, 1000);
       },
+      
+      time : function(){
+        return timeLeft;
+      },
 
       // stop elem
       end : function(msg) {
@@ -65,6 +69,17 @@
 
         elem
           .remove();
+      },
+    
+      // poke around the internals (NOT CHAINABLE)
+      debug : function() {
+        return {
+          elem : elem,
+          defaults : defaults,
+          config : config,
+          methods : methods,
+          core : core
+        };
       }
     },
 
@@ -242,8 +257,13 @@
 
     // otherwise, call method on current instance
     } else if (typeof method === 'string' && instance[method]) {
-      instance[method].call(elem);
-      return elem;
+      // debug and time method are not chainable b/c we need the object to be returned
+      if (method === 'debug' || method === 'time') {
+          return instance[method].call(elem);
+      } else { // the rest of the methods are chainable though
+          instance[method].call(elem);
+          return elem;
+      }
     }
   } 
 })(jQuery);
