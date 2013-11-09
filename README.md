@@ -27,9 +27,10 @@ matchum is an image matching game for jQuery.
       <button id="startBtn">Start</button>
     </div>
 
-And so on for as many pictures as you have/want. Matching pictures MUST appear
+Here is a basic example of the HTML markup that you would need.  Organize the main container (div#gameid in this case)
+and the ul's and li's however you like for as many pictures as you have/want. Matching pictures MUST appear
 next to each other in the list as this is how matches are determined.
-Only css restriction is that <li> tags must be relative for animations to work.
+Only css restriction is that <li> tags must be position:relative for animations to work.
 
 ***
 
@@ -61,6 +62,8 @@ These are the public methods
 
     start                       // trigger start of new game
     end                         // force end of a game
+    time                        // returns time left in current game *not being used yet but leaving for future enhancements
+    debug                       // returns config object for tinkering
     destroy                     // remove the matchum game, destroying entire game element
 
 ***
