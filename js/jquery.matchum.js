@@ -1,7 +1,7 @@
 ;(function($) {
   var Matchum = function(elem, settings){
     var defaults = {
-      containerWidth : 450,      // fixed (px)
+      containerWidth : 500,      // fixed (px)
       containerHeight : 200,     // fixed (px)
       gameTimer : 40,            // timer
       cardBack: './images/n.png'
@@ -102,16 +102,14 @@
           .height(config.containerHeight);
       },
 
-      createClasses : function() {
+      createDataMatch : function() {
         //give matching cards matching numbers
         cards.each(function(idx, li){
           var set = idx
           if(idx%2!==0){
             set--;
           }
-          $(li).attr({
-            class: set
-          })
+          $(li).data('pair', set);
         });
       },
 
@@ -147,15 +145,20 @@
           currentCard.children('img:first').attr('src', currentCard.children('img:first').data('face'));
 
           if(core.previousCard === 'false'){
-            core.previousCard = currentCard.attr('class').split(' ')[0];
-          }else if(core.previousCard === currentCard.attr('class').split(' ')[0]){
+            core.previousCard = currentCard.data('pair');
+          }else if(core.previousCard === currentCard.data('pair')){
             currentCard.children('img:first').attr('src', currentCard.children('img:first').data('face'));
             core.cardsMatched(core.previousCard);
           }else{
             core.cardFlash = true;
             var second = setInterval(function() {
-              $('.'+core.previousCard).children('img').attr('src', config.cardBack);
-              $('.'+currentCard.attr('class').split(' ')[0]).children('img').attr('src', config.cardBack);
+              cards.filter(function() { 
+                if($(this).data('pair') === core.previousCard || $(this).data('pair') === currentCard.data('pair')){
+                  $(this).children('img').attr('src', config.cardBack);
+                }
+              });
+              //$('.'+core.previousCard).children('img').attr('src', config.cardBack);
+              //$('.'+currentCard.attr('class').split(' ')[0]).children('img').attr('src', config.cardBack);
               core.previousCard = 'false';
               core.cardFlash = false;
               clearInterval(second);
@@ -166,11 +169,15 @@
 
       cardsMatched : function(pairs) {
         //2 cards matched, check if none left
-        cards.filter($('.'+pairs)).addClass('found').removeClass('unfound');
+        core.previousCard = 'false';
+        cards.filter(function() {
+          if($(this).data('pair') === pairs){
+            $(this).addClass('found').removeClass('unfound');
+          }
+        });
         if(cards.filter($('.unfound')).length === 0){
           methods.end('win');
         }
-        core.previousCard = 'false';
       },
 
       shuffleCards : function() {
@@ -226,7 +233,7 @@
         core.bindEvents();
         core.createStyles();
         core.storeImgs();
-        core.createClasses();
+        core.createDataMatch();
       }
     };
 
